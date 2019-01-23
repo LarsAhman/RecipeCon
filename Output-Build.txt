@@ -1,0 +1,5 @@
+﻿1>------ Build started: Project: RecipeWPFUI, Configuration: Debug Any CPU ------
+1>D:\Projects\Visual Studio\RecipeConverterMVVM\RecipeWPFUI\RecipeWPFUI\CommandHandler.cs(25,35,25,52): warning CS0067: The event 'CommandHandler.CanExecuteChanged' is never used
+1>D:\Projects\Visual Studio\RecipeConverterMVVM\RecipeWPFUI\RecipeWPFUI\CommandHandler.cs(25,35,25,52): warning CS0067: The event 'CommandHandler.CanExecuteChanged' is never used
+1>  RecipeWPFUI -> D:\Projects\Visual Studio\RecipeConverterMVVM\RecipeWPFUI\RecipeWPFUI\bin\Debug\RecipeWPFUI.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========

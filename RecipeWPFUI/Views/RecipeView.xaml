@@ -1,0 +1,78 @@
+﻿<Window x:Class="RecipeWPFUI.Views.RecipeView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local="clr-namespace:RecipeWPFUI.Views"
+        xmlns:vms="clr-namespace:RecipeWPFUI.ViewModels"
+        mc:Ignorable="d"
+        Title="RecipeView" Height="450" Width="800"
+        xmlns:cal="http://www.caliburnproject.org">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="20" />
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="20" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="20" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="20" />
+        </Grid.RowDefinitions>
+        
+        <Label Grid.Column="1" Grid.Row="1" Height="auto" Width="auto" Content="Paste your ingredient list below and click process"/>
+
+        <Button Command="{Binding ProcessClickCommand}" Content="Process -->" Grid.Column="2" Grid.Row="3" Height="auto" Width="auto" MaxHeight="50" Margin="10">
+
+        </Button>
+
+        <TextBox x:Name="RecipeText" TextBox.AcceptsReturn = "True" ScrollViewer.VerticalScrollBarVisibility="Auto" Grid.Column="1" Grid.Row="3" Height="auto" Width="auto" FontSize="14"
+                     />
+
+        <ComboBox SelectedIndex="{Binding ConvertSelectedIndex}" Grid.Column="3" Grid.Row="1" Width="auto" Height="auto" Text="Convert all units to:" IsReadOnly="True" IsEditable="true" HorizontalAlignment="Right">
+            <ComboBoxItem Content="Metric"/>
+            <ComboBoxItem Content="US Customary"/>
+        </ComboBox>
+        <StackPanel x:Name="multiplyStack" Grid.Column="3" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+            <Label Width="auto" Height="auto" Content="Multiply the recipe by:"/>
+            <TextBox Text="{Binding Multiplier}" Width="auto" Height="auto" MinWidth="30" TextAlignment="Right" Padding="0,2,0,0" Margin="10,0,10,0">
+            </TextBox>
+            <Button Command="{Binding MultiplyClickCommand}" Width="auto" Height="auto" Content="Multiply" Padding="5" />
+        </StackPanel>
+
+        <ScrollViewer Grid.Column="3" Grid.Row="3" Height="auto" Width="auto">
+            <StackPanel>
+                <ItemsControl ItemsSource="{Binding IngredientViewModels}">
+                    <ItemsControl.Resources>
+                        <DataTemplate DataType="{x:Type vms:AmountUnitIngredientViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Amount}"/>
+                                <ComboBox ItemsSource="{Binding RelatedUnits}" SelectedIndex="{Binding SelectedIndex}" SelectedValue="{Binding SelectedValue}" />
+                                <Label Content="{Binding Ingredient.Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:AmountIngredientViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Amount}"/>
+                                <Label Content="{Binding Ingredient.Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                        <DataTemplate DataType="{x:Type vms:IngredientViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="{Binding Ingredient.Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.Resources>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+  
+        <Button Grid.Column="3" Grid.Row="4" Width="auto" Height="auto" Content="View new ingredient list as text"/>
+    </Grid>
+</Window>
